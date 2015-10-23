@@ -10,8 +10,10 @@
 	},
 	"background": {
 		"scripts": [
+			"js/socket.io/socket.io.js",
 			"js/background.js"
 		],
+		"pages": ["background.html"],
 		"persistent": true
 	},
 	"browser_action": {
@@ -26,7 +28,7 @@
 				"https://*/*"
 			],
 			"css": [],
-			"js": ["js/content_scripts/common.js"]
+			"js": ["js/content_scripts.js"]
 		}
 	],
 	"permissions": [
