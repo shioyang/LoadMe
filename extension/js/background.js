@@ -38,6 +38,30 @@
 			}, t);
 		});
 
+		chrome.webRequest.onBeforeSendHeaders.addListener(
+			function(details) {
+				if (details.url && details.url.includes("google")) {
+					console.log("===");
+					console.log(details.url);
+					console.log(details.requestHeaders);
+					var found = false;
+					details.requestHeaders.forEach(function(header, index) {
+						console.log(header);
+						if (header.name && header.name === "Cache-Control") {
+							found = true;
+							header.value = "no-cache";
+						}
+					}, t);
+					if (!found)
+						details.requestHeaders.push({name: "Cache-Control", value: "no-cache"});
+					console.log(details.requestHeaders);
+				}
+				return {requestHeaders: details.requestHeaders};
+			},
+			{urls: ["<all_urls>"]},
+			["requestHeaders"]
+		);
+
 	};
 
 	main();
